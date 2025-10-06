@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EnvLoader {
     public static void loadDotenv() {
+        /*
+        Loads environment variables from the .env file in project root. Allows project to share database
+        information with application.yaml and docker-compose.yaml
+         */
         Dotenv dotenv = Dotenv.configure()
                 .directory("./")
                 .ignoreIfMissing()
