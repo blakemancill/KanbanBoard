@@ -1,15 +1,18 @@
 package sched.kanbanboard.features.items;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import sched.kanbanboard.features.boards.TaskBoards;
+import sched.kanbanboard.features.comments.TaskItemComments;
+import sched.kanbanboard.features.history.TaskItemHistory;
+import sched.kanbanboard.features.statuses.ItemStatuses;
+
+import java.util.List;
 
 @Getter @Setter
 @AllArgsConstructor
@@ -18,25 +21,32 @@ import org.hibernate.annotations.ColumnDefault;
 public class TaskItems {
 
     @NotNull
-    @ColumnDefault("nextval('task_items_id_seq')")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @Id
     private Integer id;
 
     @NotNull
-    @Column(name = "board_id", nullable = false)
-    private Integer boardId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id", nullable = false)
+    private TaskBoards board;
 
     @Size(max = 255)
     @NotNull
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description", length = Integer.MAX_VALUE)
+    @Column(name = "description")
     private String description;
 
     @NotNull
-    @Column(name = "status_id", nullable = false)
-    private Integer statusId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id", nullable = false)
+    private ItemStatuses status;
 
+    @OneToMany(mappedBy = "taskItem")
+    private List<TaskItemComments> comments;
+
+    @OneToMany(mappedBy = "taskItem")
+    private List<TaskItemHistory> history;
 }

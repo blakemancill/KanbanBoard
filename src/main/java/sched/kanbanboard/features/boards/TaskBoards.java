@@ -1,8 +1,6 @@
 package sched.kanbanboard.features.boards;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -10,8 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import sched.kanbanboard.features.items.TaskItems;
 
 import java.time.Instant;
+import java.util.List;
 
 @Setter @Getter
 @AllArgsConstructor
@@ -20,7 +20,7 @@ import java.time.Instant;
 public class TaskBoards {
 
     @NotNull
-    @ColumnDefault("nextval('task_boards_id_seq')")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @Id
     private Integer id;
@@ -34,4 +34,6 @@ public class TaskBoards {
     @Column(name = "created_at")
     private Instant createdAt;
 
+    @OneToMany(mappedBy = "board")
+    private List<TaskItems> items;
 }

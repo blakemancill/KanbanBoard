@@ -1,14 +1,12 @@
 package sched.kanbanboard.features.comments;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import sched.kanbanboard.features.items.TaskItems;
 
 @Entity
 @Getter @Setter
@@ -17,17 +15,18 @@ import org.hibernate.annotations.ColumnDefault;
 public class TaskItemComments {
 
     @NotNull
-    @ColumnDefault("nextval('task_item_comments_id_seq')")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @Id
     private Integer id;
 
     @NotNull
-    @Column(name = "task_item_id", nullable = false)
-    private Integer taskItemId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_item_id", nullable = false)
+    private TaskItems taskItem;
 
     @NotNull
-    @Column(name = "comment", nullable = false, length = Integer.MAX_VALUE)
+    @Column(name = "comment", nullable = false)
     private String comment;
 
 }

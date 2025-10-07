@@ -1,14 +1,15 @@
 package sched.kanbanboard.features.history;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import sched.kanbanboard.features.comments.TaskItemComments;
+import sched.kanbanboard.features.items.TaskItems;
+import sched.kanbanboard.features.statuses.ItemStatuses;
 
 import java.time.Instant;
 
@@ -19,23 +20,27 @@ import java.time.Instant;
 public class TaskItemHistory {
 
     @NotNull
-    @ColumnDefault("nextval('task_item_history_id_seq')")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @Id
     private Integer id;
 
     @NotNull
-    @Column(name = "task_item_id", nullable = false)
-    private Integer taskItemId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_item_id", nullable = false)
+    private TaskItems taskItem;
 
-    @Column(name = "previous_status_id")
-    private Integer previousStatusId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "previous_status_id")
+    private ItemStatuses previousStatus;
 
-    @Column(name = "new_status_id")
-    private Integer newStatusId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "new_status_id")
+    private ItemStatuses newStatus;
 
-    @Column(name = "comment_id")
-    private Integer commentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    private TaskItemComments comment;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "changed_at")
