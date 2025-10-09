@@ -18,7 +18,6 @@ import java.util.List;
 @Entity
 public class TaskBoards {
 
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @Id

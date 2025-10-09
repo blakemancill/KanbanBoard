@@ -16,7 +16,6 @@ import java.time.Instant;
 @NoArgsConstructor
 public class TaskItemHistory {
 
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @Id

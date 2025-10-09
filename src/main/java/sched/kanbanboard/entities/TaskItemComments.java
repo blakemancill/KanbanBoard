@@ -13,7 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TaskItemComments {
 
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @Id

@@ -16,7 +16,6 @@ import java.util.List;
 @Entity
 public class TaskItems {
 
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @Id

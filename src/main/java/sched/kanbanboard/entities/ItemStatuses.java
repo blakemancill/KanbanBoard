@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ItemStatuses {
 
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @Id
