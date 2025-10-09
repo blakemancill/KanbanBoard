@@ -1,4 +1,4 @@
-package sched.kanbanboard.features.comments;
+package sched.kanbanboard.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sched.kanbanboard.features.items.TaskItems;
 
 @Entity
 @Getter @Setter

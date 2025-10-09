@@ -1,4 +1,4 @@
-package sched.kanbanboard.features.history;
+package sched.kanbanboard.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -7,9 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
-import sched.kanbanboard.features.comments.TaskItemComments;
-import sched.kanbanboard.features.items.TaskItems;
-import sched.kanbanboard.features.statuses.ItemStatuses;
 
 import java.time.Instant;
 

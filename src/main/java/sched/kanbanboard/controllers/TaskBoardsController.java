@@ -1,7 +1,9 @@
-package sched.kanbanboard.features.boards;
+package sched.kanbanboard.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sched.kanbanboard.entities.TaskBoards;
+import sched.kanbanboard.services.TaskBoardsService;
 
 import java.util.List;
 

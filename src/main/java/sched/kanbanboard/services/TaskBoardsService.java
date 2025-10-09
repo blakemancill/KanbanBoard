@@ -1,6 +1,8 @@
-package sched.kanbanboard.features.boards;
+package sched.kanbanboard.services;
 
 import org.springframework.stereotype.Service;
+import sched.kanbanboard.entities.TaskBoards;
+import sched.kanbanboard.repositories.TaskBoardsRepository;
 
 import java.util.List;
 
