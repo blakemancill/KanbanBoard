@@ -1,10 +1,13 @@
 package sched.kanbanboard.exceptions;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.LocalDateTime;
 
 @RestControllerAdvice
 @Slf4j
@@ -17,7 +20,19 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(TaskBoardAlreadyExistsException.class)
-    public ResponseEntity<String> handleTaskBoardAlreadyExistsException(TaskBoardAlreadyExistsException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    public ResponseEntity<ErrorDetails> handleTaskBoardAlreadyExistsException(
+            TaskBoardAlreadyExistsException ex,
+            HttpServletRequest request
+    ) {
+
+        ErrorDetails errorDetails = new ErrorDetails(
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT.value(),
+                HttpStatus.CONFLICT.getReasonPhrase(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDetails);
     }
 }
